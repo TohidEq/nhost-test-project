@@ -7,6 +7,9 @@ import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
 import Dashboard from "./pages/Dashboard";
 import Profile from "./pages/Profile";
+
+import ProtectedRoute from "./components/ProtectedRoutes";
+
 const nhost = new NhostClient({
   subdomain: process.env.REACT_APP_NHOST_SUBDOMAIN, // qwrigktexqupbxhrevhy
   region: process.env.REACT_APP_NHOST_REGION, // eu-central-1
@@ -19,7 +22,14 @@ function App() {
         <Routes>
           <Route path="sign-up" element={<SignUp />} />
           <Route path="sign-in" element={<SignIn />} />
-          <Route path="/" element={<Layout />}>
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute>
+                <Layout />
+              </ProtectedRoute>
+            }
+          >
             <Route index element={<Dashboard />} />
             <Route path="profile" element={<Profile />} />
           </Route>
